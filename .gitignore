@@ -1,0 +1,6 @@
+uie-*
+data/*.txt
+.DS_Store
+checkpoint
+.ipynb_checkpoints
+__pycache__
