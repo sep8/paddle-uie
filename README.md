@@ -386,16 +386,16 @@ schema = ['出发地', '目的地', '费用', '时间']
     <img src=https://user-images.githubusercontent.com/40840292/167336891-afef1ad5-8777-456d-805b-9c65d9014b80.png height=100 hspace='10'/>
 </div>
 
-- 标注完成后，在doccano平台上导出文件，并将其重命名为``doccano_ext.json``后，放入``./data``目录下。
+- 标注完成后，在doccano平台上导出文件，并将其重命名为``doccano_ext.jsonl``后，放入``./data``目录下。
 
-- 这里我们提供预先标注好的文件[doccano_ext.json](https://bj.bcebos.com/paddlenlp/datasets/uie/doccano_ext.json)，可直接下载并放入`./data`目录。执行以下脚本进行数据转换，执行后会在`./data`目录下生成训练/验证/测试集文件。
+- 这里我们提供预先标注好的文件[doccano_ext.jsonl](https://bj.bcebos.com/paddlenlp/datasets/uie/doccano_ext.json)，可直接下载并放入`./data`目录。执行以下脚本进行数据转换，执行后会在`./data`目录下生成训练/验证/测试集文件。
 
 ```shell
 python doccano.py \
-    --doccano_file ./data/doccano_ext.json \
+    --doccano_file ./data/raw/doccano_ext.jsonl \
     --task_type ext \
     --save_dir ./data \
-    --splits 0.8 0.2 0
+    --splits 0.8 0.1 0.1
 ```
 
 
@@ -432,12 +432,12 @@ python finetune.py \
     --learning_rate 1e-5 \
     --batch_size 16 \
     --max_seq_len 512 \
-    --num_epochs 100 \
-    --model uie-base \
+    --num_epochs 30 \
+    --model uie-mini \
     --seed 1000 \
     --logging_steps 10 \
     --valid_steps 100 \
-    --device gpu
+    --device cpu
 ```
 
 多卡启动：
