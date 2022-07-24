@@ -4,3 +4,4 @@ data/*.txt
 checkpoint
 .ipynb_checkpoints
 __pycache__
+deploy/static/export

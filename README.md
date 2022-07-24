@@ -26,32 +26,6 @@
 
 - **效果领先**：开放域信息抽取在多种场景，多种任务上，均有不俗的表现。
 
-<a name="应用示例"></a>
-
-## 2. 应用示例
-
-UIE不限定行业领域和抽取目标，以下是一些零样本行业示例：
-
-- 医疗场景-专病结构化
-
-![image](https://user-images.githubusercontent.com/40840292/169017581-93c8ee44-856d-4d17-970c-b6138d10f8bc.png)
-
-- 法律场景-判决书抽取
-
-![image](https://user-images.githubusercontent.com/40840292/169017863-442c50f1-bfd4-47d0-8d95-8b1d53cfba3c.png)
-
-- 金融场景-收入证明、招股书抽取
-
-![image](https://user-images.githubusercontent.com/40840292/169017982-e521ddf6-d233-41f3-974e-6f40f8f2edbc.png)
-
-- 公安场景-事故报告抽取
-
-![image](https://user-images.githubusercontent.com/40840292/169018340-31efc1bf-f54d-43f7-b62a-8f7ce9bf0536.png)
-
-- 旅游场景-宣传册、手册抽取
-
-![image](https://user-images.githubusercontent.com/40840292/169018113-c937eb0b-9fd7-4ecc-8615-bcdde2dac81d.png)
-
 <a name="开箱即用"></a>
 
 ## 3. 开箱即用
@@ -580,7 +554,7 @@ python evaluate.py \
     CPU端的部署请使用如下命令安装所需依赖
 
     ```shell
-    pip install -r deploy/python/requirements_cpu.txt
+    pip install -r deploy/requirements_cpu.txt
     ```
 
   - GPU端
@@ -588,7 +562,7 @@ python evaluate.py \
     为了在GPU上获得最佳的推理性能和稳定性，请先确保机器已正确安装NVIDIA相关驱动和基础软件，确保**CUDA >= 11.2，cuDNN >= 8.1.1**，并使用以下命令安装所需依赖
 
     ```shell
-    pip install -r deploy/python/requirements_gpu.txt
+    pip install -r deploy/requirements_gpu.txt
     ```
 
     如需使用半精度（FP16）部署，请确保GPU设备的CUDA计算能力 (CUDA Compute Capability) 大于7.0，典型的设备包括V100、T4、A10、A100、GTX 20系列和30系列显卡等。
@@ -600,7 +574,7 @@ python evaluate.py \
   将训练后的动态图参数导出为静态图参数：
 
   ```shell
-  python export_model.py --model_path ./checkpoint/model_best --output_path ./export
+  python export_model.py --model_path ./checkpoint/model_best --output_path ./deploy/static/export
   ```
 
   可配置参数说明：
@@ -615,7 +589,7 @@ python evaluate.py \
     在CPU端，请使用如下命令进行部署
 
     ```shell
-    python deploy/python/infer_cpu.py --model_path_prefix export/inference
+    python deploy/infer_cpu.py --model_path_prefix export/inference
     ```
 
     可配置参数说明：
@@ -630,7 +604,7 @@ python evaluate.py \
     在GPU端，请使用如下命令进行部署
 
     ```shell
-    python deploy/python/infer_gpu.py --model_path_prefix export/inference --use_fp16
+    python deploy/infer_gpu.py --model_path_prefix export/inference --use_fp16
     ```
 
     可配置参数说明：
@@ -640,15 +614,6 @@ python evaluate.py \
     - `position_prob`：模型对于span的起始位置/终止位置的结果概率0~1之间，返回结果去掉小于这个阈值的结果，默认为0.5，span的最终概率输出为起始位置概率和终止位置概率的乘积。
     - `max_seq_len`: 文本最大切分长度，输入超过最大长度时会对输入文本进行自动切分，默认为512。
     - `batch_size`: 批处理大小，请结合机器情况进行调整，默认为4。
-
-<a name="CCKS比赛"></a>
-
-## 5.CCKS比赛
-
-为了进一步探索通用信息抽取的边界，我们举办了**CCKS 2022 千言通用信息抽取竞赛评测**（2022/03/30 - 2022/07/31）。
-
-- [报名链接](https://aistudio.baidu.com/aistudio/competition/detail/161/0/introduction)
-- [基线代码](https://github.com/PaddlePaddle/PaddleNLP/tree/develop/examples/information_extraction/DuUIE)
 
 ## References
 - **[Unified Structure Generation for Universal Information Extraction](https://arxiv.org/pdf/2203.12277.pdf)**
