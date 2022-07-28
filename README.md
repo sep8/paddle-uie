@@ -13,6 +13,10 @@
   | `uie-micro`| 4-layers, 384-hidden, 12-heads |
   | `uie-nano`| 4-layers, 312-hidden, 12-heads |
 
+#### 运行环境
+
+- 可以直接使用C3-NLP的的python虚拟环境
+
 <a name="轻定制功能"></a>
 
 ##  轻定制功能
@@ -306,6 +310,21 @@ python evaluate.py \
     proxy = 'Your proxy url' # http://proxy.****.com:****
     gdown.download(id=id, output=output, quiet=False, proxy=proxy)
     ```
+- 训练好的模型
+  - Google drive 上放置了一个训练好的 [onnx模型](https://drive.google.com/file/d/1VnvD72MbF678fFxw78dBGz6MIu7i-Elr/view?usp=sharing)
+  - schema
+    - 实体
+      - 日期，时间，地点（住址， 单位），指代（家，学校等）
+    - 关系
+      - 出行时间
+      - 出行地点
+  - 特殊处理：
+    - “感染者”和轨迹关系，需要通过数据预处理确定
+    - 只有“日期”没有“时间”的“地点”，不标注关系
+    - 忽略不明确的“日期”“时间”实体，比如 近两周，每日
+    - 上午，中午，下午，晚上 等词语标注为“时间”
+    - “xx月xx日至xx日“，或 “xx月xx日，xx日“，整体标记为时间，在模型输出结果进行进一步处理 
+
 - 使用训练好的模型做 `doccano` 的 `Auto labeling`
   - 安装flask `pip install flask`
   - 将 `model/model.onnx` 移动到 `deploy/static`
@@ -315,5 +334,6 @@ python evaluate.py \
     flask run
   ```
   - 启动`doccano`，然后配置`Auto labeling`，可以参考[官方文档](https://doccano.github.io/doccano/advanced/auto_labelling_config/), [How to connect to a local REST API for auto annotation](https://github.com/doccano/doccano/issues/1417)
+
 ## References
 - **[Unified Structure Generation for Universal Information Extraction](https://arxiv.org/pdf/2203.12277.pdf)**
