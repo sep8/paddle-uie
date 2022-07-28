@@ -1,7 +1,7 @@
+.DS_Store
+__pycache__
+.ipynb_checkpoints
+checkpoint
 uie-*
 data/*.txt
-.DS_Store
-checkpoint
-.ipynb_checkpoints
-__pycache__
-deploy/static/export
+model/*
