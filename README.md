@@ -1,6 +1,6 @@
-# UIE(Universal Information Extraction) with paddlenlp
+# UIE(Universal Information Extraction) with [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP)
 
-#### 可选择用来fine-tune到模型
+#### 可用的模型
 
 - 模型选择
 
