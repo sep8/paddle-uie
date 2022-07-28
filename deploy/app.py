@@ -41,7 +41,7 @@ app = Flask(__name__, static_folder='static')
 def ner():
     text = request.form.get("text") or request.json.get(
         "text") or request.values.get("text")
-    print('input', text)
+    print('-----------------------')
     args = parse_args()
     args.device = 'cpu'
     args.schema = schema
@@ -57,5 +57,4 @@ def ner():
                     'end': item['end'],
                     'text': item['text']
                 })
-    print('entities', entities)
     return jsonify(entities)
